@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Focus Trapper</title>
+  <style>
+    html {
+      font-size: 100%;
+    }
+
+    body {
+      padding: 3rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    .demo-item {
+      margin-top: 2rem;
+    }
+    
+    focus-trapper * {
+      margin-right: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Focus Trapper Demo</h1>
+  <div class="demo-item">
+    <button type="button" id="toggle-button">Toggle focus trapping</button>
+  </div>
+  <div class="demo-item">
+    <focus-trapper id="one">
+      <button>One</button>
+      <button>Two</button>
+      <a href="#">Three</a>
+      <input type="text">
+    </focus-trapper>
+  </div>
+  
+  <div class="demo-item">
+    <button type="button" id="add-button">Add new element</button>
+  </div>
+  <div class="demo-item">
+    <focus-trapper id="two">
+      <button>One</button>
+      <button>Two</button>
+    </focus-trapper>
+  </div>
+</body>
+
+<script type="module">
+  import FocusTrapper from './FocusTrapper.js';
+  customElements.define('focus-trapper', FocusTrapper);
+  
+  const addButton = document.getElementById('add-button');
+  addButton.addEventListener('click', function (event) {
+    event.preventDefault();
+    const anotherButton = document.createElement('button');
+    anotherButton.innerHTML = 'New button';
+    const trapper = document.getElementById('two');
+    trapper.appendChild(anotherButton);
+  });
+
+  const toggleButton = document.getElementById('toggle-button');
+  toggleButton.addEventListener('click', function (event) {
+    event.preventDefault();
+    const trapper = document.querySelector('focus-trapper');
+    const isDisabled = trapper.getAttribute('disabled');
+    isDisabled == '' ?
+      trapper.removeAttribute('disabled') :
+      trapper.setAttribute('disabled', '');
+  });
+</script>
+</html>

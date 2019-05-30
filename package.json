@@ -1,0 +1,14 @@
+{
+  "name": "focus-trapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "focus-trapper.js",
+  "scripts": {
+    "start": "npx serve"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^11.0.1"
+  }
+}
