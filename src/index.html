@@ -20,7 +20,7 @@
       background-color: none;
       border-radius: .25rem;
       border: 2px solid #dddddd;
-      height: 2rem;
+      height: 2.125rem;
       padding-right: 1rem;
       padding-left: 1rem;
       line-height: 1.1;
@@ -28,16 +28,17 @@
     }
     
     .button-primary {
-      background-color: green;
-      box-shadow: 0 .125rem 0 0 rgb(1, 75, 1);
-      border: 2px solid green;
+      background-color: lightseagreen;
+      box-shadow: 0 .125rem 0 0 rgb(16, 99, 95);
+      border: 2px solid lightseagreen;
       color: white;
       font-weight: 700;
     }
     
     button[aria-checked="true"] {
-      background-color: rgb(1, 75, 1);
+      background-color: rgb(16, 99, 95);
       box-shadow: none;
+      border-color: rgb(16, 99, 95);
     }
     
     *:focus {
@@ -45,8 +46,8 @@
     }
     
     *:focus-visible {
-      outline: 2px dashed green;
-      outline-offset: 3px;
+      outline: 2px dashed navy;
+      outline-offset: 4px;
     }
 
     .demo-item {
@@ -59,59 +60,62 @@
   </style>
 </head>
 <body>
-  <h1>Focus Trapper Demo</h1>
-  <div class="demo-item">
-    <button class="button-primary" type="button" id="toggle-button" aria-checked="false">Toggle focus trapping</button>
-  </div>
-  <div class="demo-item">
-    <focus-trapper id="one">
-      <button>One</button>
-      <button>Two</button>
-      <a href="#">Three</a>
-      <input type="text">
-      <span>
-        <input type="checkbox" id="check-one">
-        <label for="check-one">Sample checkbox</label>
-      </span>
-    </focus-trapper>
-  </div>
+  <main>
+    <h1>Focus Trapper Demo</h1>
+    <div class="demo-item">
+      <button class="button-primary" type="button" id="toggle-button" aria-checked="false">Toggle focus trapping</button>
+    </div>
+    <div class="demo-item">
+      <focus-trapper id="one">
+        <button>One</button>
+        <a href="#">Two</a>
+        <span>
+          <label for="text-one">Three</label>
+          <input id="text-one" type="text">
+        </span>
+        <span>
+          <input id="check-one" type="checkbox">
+          <label for="check-one">Sample checkbox</label>
+        </span>
+      </focus-trapper>
+    </div>
+
+    <div class="demo-item">
+      <button class="button-primary" type="button" id="add-button">Add new element</button>
+    </div>
+    <div class="demo-item">
+      <focus-trapper id="two" trapped>
+        <button>One</button>
+        <button>Two</button>
+      </focus-trapper>
+    </div>
+  </main>
+  <script type="module">
+    import FocusTrapper from './FocusTrapper.js';
+    customElements.define('focus-trapper', FocusTrapper);
+    
+    const addButton = document.getElementById('add-button');
+    addButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      const anotherButton = document.createElement('button');
+      anotherButton.innerHTML = 'New button';
+      const trapper = document.getElementById('two');
+      trapper.appendChild(anotherButton);
+    });
   
-  <div class="demo-item">
-    <button class="button-primary" type="button" id="add-button">Add new element</button>
-  </div>
-  <div class="demo-item">
-    <focus-trapper id="two" trapped>
-      <button>One</button>
-      <button>Two</button>
-    </focus-trapper>
-  </div>
+    const toggleButton = document.getElementById('toggle-button');
+    toggleButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      const isChecked = this.getAttribute('aria-checked');
+      isChecked === 'true' ?
+        this.setAttribute('aria-checked', 'false') :
+        this.setAttribute('aria-checked', 'true');
+      const trapper = document.querySelector('focus-trapper');
+      const isTrapped = trapper.getAttribute('trapped');
+      isTrapped == '' ?
+        trapper.removeAttribute('trapped') :
+        trapper.setAttribute('trapped', '');
+    });
+  </script>
 </body>
-
-<script type="module">
-  import FocusTrapper from './FocusTrapper.js';
-  customElements.define('focus-trapper', FocusTrapper);
-  
-  const addButton = document.getElementById('add-button');
-  addButton.addEventListener('click', function (event) {
-    event.preventDefault();
-    const anotherButton = document.createElement('button');
-    anotherButton.innerHTML = 'New button';
-    const trapper = document.getElementById('two');
-    trapper.appendChild(anotherButton);
-  });
-
-  const toggleButton = document.getElementById('toggle-button');
-  toggleButton.addEventListener('click', function (event) {
-    event.preventDefault();
-    const isChecked = this.getAttribute('aria-checked');
-    isChecked === 'true' ?
-      this.setAttribute('aria-checked', 'false') :
-      this.setAttribute('aria-checked', 'true');
-    const trapper = document.querySelector('focus-trapper');
-    const isTrapped = trapper.getAttribute('trapped');
-    isTrapped == '' ?
-      trapper.removeAttribute('trapped') :
-      trapper.setAttribute('trapped', '');
-  });
-</script>
 </html>
