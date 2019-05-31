@@ -94,16 +94,12 @@ class FocusTrapper extends HTMLElement {
     this.first = this.focusableElements[0];
     this.last = this.focusableElements[this.focusableElements.length - 1];
   }
-
-  _handleForwardTab(first, last, event) {
-    if (document.activeElement == last) {
+  
+  _handleTab(first, last, event, direction) {
+    if (document.activeElement === last && direction === 'forward') {
       event.preventDefault();
       first.focus();
-    }
-  }
-
-  _handleBackwardTab(first, last, event) {
-    if (document.activeElement == first) {
+    } else if (document.activeElement === first && direction === 'backward') {
       event.preventDefault();
       last.focus();
     }
@@ -113,8 +109,8 @@ class FocusTrapper extends HTMLElement {
     if (event.keyCode !== 9 || this.trapped == null) return;
 
     event.shiftKey
-      ? this._handleBackwardTab(this.first, this.last, event)
-      : this._handleForwardTab(this.first, this.last, event);
+      ? this._handleTab(this.first, this.last, event, 'backward')
+      : this._handleTab(this.first, this.last, event, 'forward');
   }
 }
 
