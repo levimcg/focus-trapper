@@ -65,6 +65,10 @@ class FocusTrapper extends HTMLElement {
   }
 
   set trapped(value) {
+    /**
+     *This article was really helpful here:
+     * https://developers.google.com/web/fundamentals/web-components/best-practices#avoid-reentrancy
+     */
     const isTrapped = new Boolean(value);
     if (isTrapped) {
       this.setAttribute('trapped', '');
