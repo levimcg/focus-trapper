@@ -4,11 +4,13 @@
   "description": "A Web Component wrapper that makes it easier to manage focus trapping",
   "main": "focus-trapper.js",
   "scripts": {
-    "start": "npx serve"
+    "start": "npx serve src",
+    "deploy": "npx gh-pages -d src"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "serve": "^11.0.1"
   }
 }
