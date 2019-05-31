@@ -38,10 +38,11 @@ class FocusTrapper extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-    
+
     // Bind the callback for our MO to the instance
-    this._childrenChangedCallback = this._childrenChangedCallback.bind(this);
-    
+    this._childrenChangedCallback =
+      this._childrenChangedCallback.bind(this);
+
     // Set up our MutationObserver
     const observerOptions = {
       childList: true,
@@ -56,27 +57,27 @@ class FocusTrapper extends HTMLElement {
     this._findAllChildNodes();
     this.addEventListener('keydown', this._handleKeydown);
   }
-  
+
   disconnectedCallback() {
     // Clean up event listener and MutationObserver
     this.removeEventListener('keydown', this._handleKeydown);
     this.observer.disconnect();
   }
-  
-  // Add getter and setter for 'disabled' attribute here.
-  set disabled(value) {
-    const isDisabled = new Boolean(value);
-    if (isDisabled) {
-      this.setAttribute('disabled', '');
+
+  // Add getter and setter for 'trapped' attribute here.
+  set trapped(value) {
+    const isTrapped = new Boolean(value);
+    if (isTrapped) {
+      this.setAttribute('trapped', '');
     } else {
-      this.removeAttribute('disabled');
+      this.removeAttribute('trapped');
     }
   }
 
-  get disabled() {
-    return this.getAttribute('disabled');
+  get trapped() {
+    return this.getAttribute('trapped');
   }
-  
+
   _childrenChangedCallback(mutationList) {
     for (let mutation of mutationList) {
       if (mutation.type === 'childList') {
@@ -106,7 +107,7 @@ class FocusTrapper extends HTMLElement {
   }
 
   _handleKeydown(event) {
-    if (event.keyCode !== 9 || this.disabled == '') return;
+    if (event.keyCode !== 9 || this.trapped == null) return;
 
     event.shiftKey
       ? this._handleBackwardTab(this.first, this.last, event)
