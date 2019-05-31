@@ -106,10 +106,12 @@
     customElements.define('focus-trapper', FocusTrapper);
 
     const addButton = document.getElementById('add-button');
+    
     addButton.addEventListener('click', function (event) {
       event.preventDefault();
       const anotherButton = document.createElement('button');
       anotherButton.innerHTML = 'New button';
+      anotherButton.setAttribute('type', 'button');
       const trapper = document.getElementById('two');
       trapper.appendChild(anotherButton);
     });
@@ -118,11 +120,20 @@
 
     toggleButton.addEventListener('click', function (event) {
       event.preventDefault();
-      const isChecked = this.getAttribute('aria-checked');
+      const trapper = document.getElementById('one');
+      
+      function toggleTrapped(bool) {
+        toggleButton.setAttribute('aria-checked', bool);
+        toggleButton.textContent = `
+          Toggle Focus Trapping: ${bool ? 'OFF' : 'ON'}
+        `;
+      }
+
+      const isChecked = toggleButton.getAttribute('aria-checked');
       isChecked === 'true' ?
-        this.setAttribute('aria-checked', 'false') :
-        this.setAttribute('aria-checked', 'true');
-      const trapper = document.querySelector('focus-trapper');
+        toggleTrapped(false):
+        toggleTrapped(true);
+
       const isTrapped = trapper.getAttribute('trapped');
       isTrapped == '' ?
         trapper.removeAttribute('trapped') :
