@@ -2,7 +2,8 @@
   "name": "focus-trapper",
   "version": "0.1.0",
   "description": "A Web Component wrapper that makes it easier to manage focus trapping",
-  "main": "focus-trapper.js",
+  "main": "src/focus-trapper.js",
+  "module": "src/focus-trapper.js",
   "scripts": {
     "start": "npx serve src",
     "deploy": "npx gh-pages -d src"
