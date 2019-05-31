@@ -1,7 +1,7 @@
 {
   "name": "focus-trapper",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "A Web Component wrapper that makes it easier to manage focus trapping",
   "main": "focus-trapper.js",
   "scripts": {
     "start": "npx serve"

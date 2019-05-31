@@ -1,3 +1,9 @@
+/**!
+ * focus-trapper - 0.1.0
+ * Copyright (C) 2019 Levi McGranahan
+ * MIT License
+ */
+
 // A helper for this beast of a selector
 const focusableSelectors = `
   a[href],
@@ -9,6 +15,10 @@ const focusableSelectors = `
   [tabindex="0"]
 `;
 
+/**
+ * Create a reusable template element. This gets applied to every new
+ * instance of our component which is better for performance.
+ */
 const template = document.createElement('template');
 template.innerHTML = `
   <style>
