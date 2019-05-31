@@ -42,7 +42,9 @@ class FocusTrapper extends HTMLElement {
     // Bind the callback for our MO to the instance
     this._childrenChangedCallback =
       this._childrenChangedCallback.bind(this);
+  }
 
+  connectedCallback() {
     // Set up our MutationObserver
     const observerOptions = {
       childList: true,
@@ -51,9 +53,7 @@ class FocusTrapper extends HTMLElement {
     };
     this.observer = new MutationObserver(this._childrenChangedCallback);
     this.observer.observe(this, observerOptions);
-  }
-
-  connectedCallback() {
+    
     this._findAllChildNodes();
     this.addEventListener('keydown', this._handleKeydown);
   }
@@ -64,7 +64,6 @@ class FocusTrapper extends HTMLElement {
     this.observer.disconnect();
   }
 
-  // Add getter and setter for 'trapped' attribute here.
   set trapped(value) {
     const isTrapped = new Boolean(value);
     if (isTrapped) {

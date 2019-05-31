@@ -93,7 +93,7 @@
   <script type="module">
     import FocusTrapper from './FocusTrapper.js';
     customElements.define('focus-trapper', FocusTrapper);
-    
+
     const addButton = document.getElementById('add-button');
     addButton.addEventListener('click', function (event) {
       event.preventDefault();
@@ -102,8 +102,9 @@
       const trapper = document.getElementById('two');
       trapper.appendChild(anotherButton);
     });
-  
+
     const toggleButton = document.getElementById('toggle-button');
+
     toggleButton.addEventListener('click', function (event) {
       event.preventDefault();
       const isChecked = this.getAttribute('aria-checked');
