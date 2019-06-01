@@ -42,7 +42,9 @@ class FocusTrapper extends HTMLElement {
     // Bind the callback for our MO to the instance
     this._childrenChangedCallback =
       this._childrenChangedCallback.bind(this);
+  }
 
+  connectedCallback() {
     // Set up our MutationObserver
     const observerOptions = {
       childList: true,
@@ -51,9 +53,7 @@ class FocusTrapper extends HTMLElement {
     };
     this.observer = new MutationObserver(this._childrenChangedCallback);
     this.observer.observe(this, observerOptions);
-  }
-
-  connectedCallback() {
+    
     this._findAllChildNodes();
     this.addEventListener('keydown', this._handleKeydown);
   }
@@ -64,8 +64,11 @@ class FocusTrapper extends HTMLElement {
     this.observer.disconnect();
   }
 
-  // Add getter and setter for 'trapped' attribute here.
   set trapped(value) {
+    /**
+     *This article was really helpful here:
+     * https://developers.google.com/web/fundamentals/web-components/best-practices#avoid-reentrancy
+     */
     const isTrapped = new Boolean(value);
     if (isTrapped) {
       this.setAttribute('trapped', '');
@@ -91,16 +94,12 @@ class FocusTrapper extends HTMLElement {
     this.first = this.focusableElements[0];
     this.last = this.focusableElements[this.focusableElements.length - 1];
   }
-
-  _handleForwardTab(first, last, event) {
-    if (document.activeElement == last) {
+  
+  _handleTab(first, last, event, direction) {
+    if (document.activeElement === last && direction === 'forward') {
       event.preventDefault();
       first.focus();
-    }
-  }
-
-  _handleBackwardTab(first, last, event) {
-    if (document.activeElement == first) {
+    } else if (document.activeElement === first && direction === 'backward') {
       event.preventDefault();
       last.focus();
     }
@@ -110,8 +109,8 @@ class FocusTrapper extends HTMLElement {
     if (event.keyCode !== 9 || this.trapped == null) return;
 
     event.shiftKey
-      ? this._handleBackwardTab(this.first, this.last, event)
-      : this._handleForwardTab(this.first, this.last, event);
+      ? this._handleTab(this.first, this.last, event, 'backward')
+      : this._handleTab(this.first, this.last, event, 'forward');
   }
 }
 
