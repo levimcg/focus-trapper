@@ -6,17 +6,40 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Focus Trapper</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+    
     html {
-      font-size: 100%;
+      font-size: 110%;
     }
 
     body {
-      padding: 3rem;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.5;
+      max-width: 40rem;
+      padding-top: 2rem;
+      padding-right: 3rem;
+      padding-bottom: 9rem;
+      padding-left: 3rem;
     }
     
     a {
       color: seagreen;
+    }
+    
+    h1 {
+      margin-top: 0;
+    }
+
+    h2 {
+      margin-top: 3rem;
+    }
+    
+    code {
+      font-family: "SFMono-Regular", Consolas, Menlo, Courier, monospace;
+      font-size: .9rem;
+      color: crimson;
     }
     
     button {
@@ -59,6 +82,7 @@
     }
     
     focus-trapper > * {
+      margin-top: 1rem;
       margin-right: 1rem;
     }
   </style>
@@ -66,6 +90,9 @@
 <body>
   <main>
     <h1>Focus Trapper Demo</h1>
+
+    <h2>The "trapped" attribute</h2>
+    <p>Click the button to toggle the <code>trapped</code> attribute.</p>
     <div class="demo-item">
       <button
         aria-checked="false"
@@ -91,6 +118,8 @@
       </focus-trapper>
     </div>
 
+    <h2>Dynamically add elements</h2>
+    <p>This demo has focus trapping enabled by default. Click the button to add new elements after the page has loaded.</p>
     <div class="demo-item">
       <button class="button-primary" type="button" id="add-button">Add new element</button>
     </div>
@@ -125,7 +154,7 @@
       function toggleTrapped(bool) {
         toggleButton.setAttribute('aria-checked', bool);
         toggleButton.textContent = `
-          Toggle Focus Trapping: ${bool ? 'OFF' : 'ON'}
+          Toggle Focus Trapping ${bool ? 'OFF' : 'ON'}
         `;
       }
 
