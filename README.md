@@ -35,3 +35,6 @@ By default the `focus-trapper` custom element won't do anything. To make it trap
   <button type="button">Button three</button>
 </focus-trapper>
 ```
+
+## Inspiration
+The idea for this focus trapper component was inspired by the [FocusTrapZone](https://developer.microsoft.com/en-us/fabric#/controls/web/focustrapzone) React component in the the [Microsoft Fabric](https://developer.microsoft.com/en-us/fabric#/) design system.
