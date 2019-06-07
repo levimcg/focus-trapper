@@ -62,7 +62,7 @@
       font-weight: 700;
     }
     
-    button[aria-checked="true"] {
+    button[aria-pressed="true"] {
       background-color: rgb(27, 83, 52);
       box-shadow: none;
       border-color: rgb(27, 83, 52);
@@ -95,7 +95,7 @@
     <p>Click the button to toggle the <code>trapped</code> attribute.</p>
     <div class="demo-item">
       <button
-        aria-checked="false"
+        aria-pressed="false"
         class="button-primary"
         id="toggle-button"
         type="button"
@@ -152,14 +152,14 @@
       const trapper = document.getElementById('one');
       
       function toggleTrapped(bool) {
-        toggleButton.setAttribute('aria-checked', bool);
+        toggleButton.setAttribute('aria-pressed', bool);
         toggleButton.textContent = `
           Toggle Focus Trapping ${bool ? 'OFF' : 'ON'}
         `;
       }
 
-      const isChecked = toggleButton.getAttribute('aria-checked');
-      isChecked === 'true' ?
+      const isPressed = toggleButton.getAttribute('aria-pressed');
+      isPressed === 'true' ?
         toggleTrapped(false):
         toggleTrapped(true);
 
