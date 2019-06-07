@@ -8,7 +8,7 @@
     "start": "npx serve src",
     "deploy": "npx gh-pages -d src"
   },
-  "author": "",
+  "author": "Levi McGranahan",
   "license": "MIT",
   "devDependencies": {
     "gh-pages": "^2.0.1",
