@@ -9,14 +9,18 @@ One of the challenging things about building accessible UI components in handlin
 ## Getting started
 Import `FocusTrapper.js` into your project and register it as a `customElement`;
 
-```js
-import FocusTrapper from './FocusTrapper.js';
+Focus trapper is available on [npm](https://www.npmjs.com/package/focus-trapper) or you can import it from [jsDelivr](https://www.jsdelivr.com/package/npm/focus-trapper) if you just want to try it out in a script tag.
 
-// Define the <focus-trapper></focus-trapper> custom element
-customElements.define('focus-trapper', FocusTrapper);
+```html
+<script type="module">
+  import FocusTrapper from 'https://cdn.jsdelivr.net/npm/focus-trapper@0.1.0/src/FocusTrapper.js';
+  
+  // Define the <focus-trapper></focus-trapper> custom element
+  customElements.define('focus-trapper', FocusTrapper);
+</script>
 ```
 
-After you have define the `<focus-trapper>` custom element you should be able to use it in your HTML.
+After you have defined the `<focus-trapper>` custom element you should be able to use it in your HTML.
 
 ```html
 <focus-trapper>
