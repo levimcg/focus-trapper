@@ -1,7 +1,7 @@
 # Focus Trapper
 A Web Component wrapper that makes it easier to manage focus trapping.
 
-[Demo](https://levimcg.github.io/focus-trapper/)
+[🔎 Check out the demo](https://levimcg.github.io/focus-trapper/)
 
 ## About
 One of the challenging things about building accessible UI components in handling keyboard navigation, especially managing focus in components like [modal dialogs](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal). The goal of Focus Trapper is to abstract some of that functionality into a declarative, easy-to-use Web Component.
