@@ -112,6 +112,7 @@
     
     .example {
       margin-top: 2rem;
+      margin-bottom: 2rem;
       border: 2px solid #e3e7e7;
       border-radius: .25rem;
       padding: 2rem;
@@ -145,14 +146,23 @@
     </div>
     <div class="example">
       <focus-trapper id="one">
-        <button>One</button>
-        <a href="#">Two</a>
-        <div class="form-control">
-          <label for="text-one">Three</label>
-          <input id="text-one" type="text">
-        </div>
-        <input id="check-one" type="checkbox">
-        <label for="check-one">Sample checkbox</label>
+        <form>
+          <div class="form-control">
+            <label for="text-one">Text input</label>
+            <input id="text-one" type="text">
+          </div>
+          <div class="form-control">
+            <label for="text-two">Another text input</label>
+            <input id="text-two" type="text">
+          </div>
+          <div class="form-control">
+            <input id="check-one" type="checkbox">
+            <label for="check-one">Sample checkbox</label>
+          </div>
+          <div class="form-control">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
       </focus-trapper>
     </div>
 
@@ -172,7 +182,7 @@
     <p>This example uses the native <code>dialog</code> element with a nested focus-trapper inside that wraps a form with a text input and a submit button as well as a button used to close the dialog.</p>
     
     <h3>Making the modal work</h3>
-    <p>I've added a bit of JavaScript here to handle showing and hiding the modal, but the <code>focus-trapper</code> element does the rest.</p>
+    <p>It's important to note that the native <code>dialog</code> element isn't implemented in all browsers. I've included a polyfill to add support, but the focus trapper should still work if you choose to implement your own custom modal dialog.</p>
     <div class="example">
       <button class="button-primary" id="show-modal">Show modal</button>
       <dialog>
@@ -182,12 +192,13 @@
               <label for="name">Name</label>
               <input id="name" type="text">
             </div>
-            <button class="button-primary" type="button">Submit</button>
+            <button class="button-primary" type="submit">Submit</button>
           </form>
           <button class="button-close" id="hide-modal" type="button">Close</button>
         </focus-trapper>
       </dialog>
     </div>
+    <p>I've added a bit of JavaScript here to handle showing and hiding the modal, but the <code>focus-trapper</code> element does the rest.</p>
     <p>With the <code>trapped</code> attribute added, the focus-trapper element will cycle focus from first to last focusable element in the dialog and vice versa. This keeps focus contained in the dialog per the requirements laid out in the <a href="https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard-interaction-7" target="_blank">ARIA Authoring Practices</a>.</p>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/dialog-polyfill@0.5.0/dist/dialog-polyfill.min.js"></script>

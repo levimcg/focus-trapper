@@ -44,3 +44,8 @@ By default the `focus-trapper` custom element won't do anything. To make it trap
 
 ## Inspiration
 The idea for this focus trapper component was inspired by the [FocusTrapZone](https://developer.microsoft.com/en-us/fabric#/controls/web/focustrapzone) React component in the the [Microsoft Fabric](https://developer.microsoft.com/en-us/fabric#/) design system.
+
+## Known issues
+🐛 So far these are the bugs I can find.
+
+- Using radio buttons breaks the focus trap if you tab through a set of them without making a selection.
