@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Focus Trapper</title>
+  <!-- dialog polyfill -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dialog-polyfill@0.5.0/dist/dialog-polyfill.css">
   <style>
     * {
       box-sizing: border-box;
@@ -77,6 +79,7 @@
       max-width: 24rem;
       border: none;
       border-radius: .25rem;
+      box-shadow: 0 0 2rem .3rem rgba(0, 0, 0, .1);
     }
 
     input[type="text"] {
@@ -235,9 +238,12 @@
     
     // Modal dialog example
     (function() {
+      // Get the dialog and register in with the polyfill
+      const modal = document.querySelector('dialog');
+      dialogPolyfill.registerDialog(modal);
+      
       const showButton = document.getElementById('show-modal');
       const hideButton = document.getElementById('hide-modal');
-      const modal = document.querySelector('dialog');
       let activeButton = null;
       
       showButton.addEventListener('click', function() {
