@@ -11,17 +11,22 @@
     }
     
     html {
-      font-size: 110%;
+      font-size: 120%;
     }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       line-height: 1.5;
-      max-width: 40rem;
+      max-width: 44rem;
+      margin: 0 auto;
       padding-top: 2rem;
       padding-right: 3rem;
       padding-bottom: 9rem;
       padding-left: 3rem;
+    }
+    
+    p {
+      margin-top: 1rem;
     }
     
     a {
@@ -32,7 +37,8 @@
       margin-top: 0;
     }
 
-    h2 {
+    h2,
+    h3 {
       margin-top: 3rem;
     }
     
@@ -46,7 +52,7 @@
       font-size: 1rem;
       background-color: none;
       border-radius: .25rem;
-      border: 2px solid #dddddd;
+      border: 2px solid #c9cbcc;
       height: 2.125rem;
       padding-right: 1rem;
       padding-left: 1rem;
@@ -54,6 +60,34 @@
       cursor: pointer;
     }
     
+    button[aria-pressed="true"] {
+      background-color: rgb(27, 83, 52);
+      box-shadow: none;
+      border-color: rgb(27, 83, 52);
+    }
+
+    *:focus {
+      outline: 2px dashed seagreen;
+      outline-offset: 4px;
+    }
+
+    dialog {
+      padding: 3rem 2rem;
+      width: 100%;
+      max-width: 24rem;
+      border: none;
+      border-radius: .25rem;
+    }
+
+    input[type="text"] {
+      height: 2rem;
+      border: 2px solid #c9cbcc;
+      border-radius: .25rem;
+      display: block;
+      width: 100%;
+      max-width: 16rem;
+    }
+
     .button-primary {
       background-color: seagreen;
       box-shadow: 0 .125rem 0 0 rgb(27, 83, 52);
@@ -62,28 +96,31 @@
       font-weight: 700;
     }
     
-    button[aria-pressed="true"] {
-      background-color: rgb(27, 83, 52);
-      box-shadow: none;
-      border-color: rgb(27, 83, 52);
+    .button-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    focus-trapper > * {
+      margin-top: 1rem;
+      margin-right: 1rem;
     }
     
-    *:focus {
-      outline: none;
-    }
-    
-    *:focus-visible {
-      outline: 2px dashed seagreen;
-      outline-offset: 4px;
+    .example {
+      margin-top: 2rem;
+      border: 2px solid #e3e7e7;
+      border-radius: .25rem;
+      padding: 2rem;
     }
 
     .demo-item {
       margin-top: 2rem;
     }
     
-    focus-trapper > * {
+    .form-control {
       margin-top: 1rem;
-      margin-right: 1rem;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
@@ -103,18 +140,16 @@
         Toggle focus trapping ON
       </button>
     </div>
-    <div class="demo-item">
+    <div class="example">
       <focus-trapper id="one">
         <button>One</button>
         <a href="#">Two</a>
-        <span>
+        <div class="form-control">
           <label for="text-one">Three</label>
           <input id="text-one" type="text">
-        </span>
-        <span>
-          <input id="check-one" type="checkbox">
-          <label for="check-one">Sample checkbox</label>
-        </span>
+        </div>
+        <input id="check-one" type="checkbox">
+        <label for="check-one">Sample checkbox</label>
       </focus-trapper>
     </div>
 
@@ -123,16 +158,58 @@
     <div class="demo-item">
       <button class="button-primary" type="button" id="add-button">Add new element</button>
     </div>
-    <div class="demo-item">
+    <div class="example">
       <focus-trapper id="two" trapped>
         <button type="button">One</button>
         <button type="button">Two</button>
       </focus-trapper>
     </div>
+    
+    <h2>Modal dialog example</h2>
+    <p>This example uses the native <code>dialog</code> element with a nested focus-trapper inside that wraps a form with a text input and a submit button as well as a button used to close the dialog.</p>
+    
+    <h3>Making the modal work</h3>
+    <p>I've added a bit of JavaScript here to handle showing and hiding the modal, but the <code>focus-trapper</code> element does the rest.</p>
+    <div class="example">
+      <button class="button-primary" id="show-modal">Show modal</button>
+      <dialog>
+        <focus-trapper trapped>
+          <form action="">
+            <div class="form-control"> 
+              <label for="name">Name</label>
+              <input id="name" type="text">
+            </div>
+            <button class="button-primary" type="button">Submit</button>
+          </form>
+          <button class="button-close" id="hide-modal" type="button">Close</button>
+        </focus-trapper>
+      </dialog>
+    </div>
+    
+    <p>With the <code>trapped</code> attribute added, the focus-trapper element will cycle focus from first to last focusable element in the dialog and vice versa. This keeps focus contained in the dialog per the requirements laid out in the <a href="https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard-interaction-7" target="_blank">ARIA Authoring Practices</a>.</p>
   </main>
   <script type="module">
     import FocusTrapper from './FocusTrapper.js';
     customElements.define('focus-trapper', FocusTrapper);
+    
+    // Modal dialog example
+    (function() {
+      const showButton = document.getElementById('show-modal');
+      const hideButton = document.getElementById('hide-modal');
+      const modal = document.querySelector('dialog');
+      let activeButton = null;
+      
+      showButton.addEventListener('click', function() {
+        activeButton = document.activeElement;
+        console.log(activeButton);
+        modal.showModal();
+      });
+      
+      hideButton.addEventListener('click', function() {
+        modal.close();
+        activeButton.focus();
+      });
+    })();
 
     const addButton = document.getElementById('add-button');
     
