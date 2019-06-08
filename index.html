@@ -185,12 +185,53 @@
         </focus-trapper>
       </dialog>
     </div>
-    
     <p>With the <code>trapped</code> attribute added, the focus-trapper element will cycle focus from first to last focusable element in the dialog and vice versa. This keeps focus contained in the dialog per the requirements laid out in the <a href="https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard-interaction-7" target="_blank">ARIA Authoring Practices</a>.</p>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/dialog-polyfill@0.5.0/dist/dialog-polyfill.min.js"></script>
   <script type="module">
     import FocusTrapper from './FocusTrapper.js';
     customElements.define('focus-trapper', FocusTrapper);
+
+    // Add elements example
+    (function() {
+      const addButton = document.getElementById('add-button');
+      
+      addButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        const anotherButton = document.createElement('button');
+        anotherButton.innerHTML = 'New button';
+        anotherButton.setAttribute('type', 'button');
+        const trapper = document.getElementById('two');
+        trapper.appendChild(anotherButton);
+      });
+    })();
+    
+    // Toggle on and off example
+    (function() {
+      const toggleButton = document.getElementById('toggle-button');
+
+      toggleButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        const trapper = document.getElementById('one');
+        
+        function toggleTrapped(bool) {
+          toggleButton.setAttribute('aria-pressed', bool);
+          toggleButton.textContent = `
+            Toggle Focus Trapping ${bool ? 'OFF' : 'ON'}
+          `;
+        }
+
+        const isPressed = toggleButton.getAttribute('aria-pressed');
+        isPressed === 'true' ?
+          toggleTrapped(false):
+          toggleTrapped(true);
+
+        const isTrapped = trapper.getAttribute('trapped');
+        isTrapped == '' ?
+          trapper.removeAttribute('trapped') :
+          trapper.setAttribute('trapped', '');
+      });
+    })();
     
     // Modal dialog example
     (function() {
@@ -201,7 +242,6 @@
       
       showButton.addEventListener('click', function() {
         activeButton = document.activeElement;
-        console.log(activeButton);
         modal.showModal();
       });
       
@@ -210,41 +250,6 @@
         activeButton.focus();
       });
     })();
-
-    const addButton = document.getElementById('add-button');
-    
-    addButton.addEventListener('click', function (event) {
-      event.preventDefault();
-      const anotherButton = document.createElement('button');
-      anotherButton.innerHTML = 'New button';
-      anotherButton.setAttribute('type', 'button');
-      const trapper = document.getElementById('two');
-      trapper.appendChild(anotherButton);
-    });
-
-    const toggleButton = document.getElementById('toggle-button');
-
-    toggleButton.addEventListener('click', function(event) {
-      event.preventDefault();
-      const trapper = document.getElementById('one');
-      
-      function toggleTrapped(bool) {
-        toggleButton.setAttribute('aria-pressed', bool);
-        toggleButton.textContent = `
-          Toggle Focus Trapping ${bool ? 'OFF' : 'ON'}
-        `;
-      }
-
-      const isPressed = toggleButton.getAttribute('aria-pressed');
-      isPressed === 'true' ?
-        toggleTrapped(false):
-        toggleTrapped(true);
-
-      const isTrapped = trapper.getAttribute('trapped');
-      isTrapped == '' ?
-        trapper.removeAttribute('trapped') :
-        trapper.setAttribute('trapped', '');
-    });
   </script>
 </body>
 </html>
