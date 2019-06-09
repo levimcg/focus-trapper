@@ -13,7 +13,13 @@
     }
     
     html {
-      font-size: 120%;
+      font-size: 100%;
+    }
+    
+    @media screen and (min-width: 1040px) {
+      html {
+        font-size: 120%;
+      }
     }
 
     body {
@@ -22,9 +28,16 @@
       max-width: 44rem;
       margin: 0 auto;
       padding-top: 2rem;
-      padding-right: 3rem;
+      padding-right: 1.5rem;
       padding-bottom: 9rem;
-      padding-left: 3rem;
+      padding-left: 1.5rem;
+    }
+    
+    @media screen and (min-width: 1040px) {
+      body {
+        padding-right: 3rem;
+        padding-left: 3rem;
+      }
     }
     
     p {
@@ -89,6 +102,9 @@
       display: block;
       width: 100%;
       max-width: 16rem;
+      font-size: 1rem;
+      padding-right: .5rem;
+      padding-left: .5rem;
     }
 
     .button-primary {
