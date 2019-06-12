@@ -1,7 +1,8 @@
 # Focus Trapper
 A Web Component wrapper that makes it easier to manage focus trapping.
 
-[🔎 Check out the demo](https://levimcg.github.io/focus-trapper/)
+- [🔎 Check out the demo](https://levimcg.github.io/focus-trapper/)
+- [📘 Read the blog post](https://levimcg.com/posts/focus-trapping-web-component/)
 
 ## About
 🚨 A quick note—this is totally experimental and I'd love some [feedback](https://github.com/levimcg/focus-trapper/issues).
